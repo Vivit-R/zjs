@@ -1,5 +1,8 @@
 %{
     #include <error.h>
+    #include <stdio.h> // delet this
+    #include "zoomjoystrong.h"
+    #include "zoomjoystrong.tab.h"
     void yyerror(const char* msg);
     int yylex();
     int num_contacts = 0;
@@ -8,9 +11,10 @@
 %error-verbose
 %start script
 
-%union {int i; float f;}
+%union {int i; float f; }
 
 %token END
+%token SEPARATOR
 %token END_STATEMENT
 %token POINT
 %token LINE
@@ -25,37 +29,49 @@
 %type<f> FLOAT
 
 %%
-script:     body end
-    ;
+script:     body end;
 
-body:       statement | statement body
-    ;
+int:        INT SEPARATOR | INT END_STATEMENT
+    { $1; };
+float:      FLOAT SEPARATOR | INT END_STATEMENT
+    { $1; };
 
-end:        END END_STATEMENT
-    { return 0 };
+body:       statement | statement body;
 
-statement:  command END_STATEMENT | error
-    ;
+end:        END
+    { printf("the end\n");
+    return 0; };
+
+statement:  command end_statement
+    {printf( "statement");};
+
+end_statement:  END_STATEMENT
+    {};
 
 command:    point | line | circle | rectangle | set_color
+    {printf( "command");};
 
-point:      POINT INT INT
+point:      POINT int int
     { point($2, $3); };
 
-line:       LINE INT INT INT INT
+line:       LINE int int int int
     { line($2, $3, $4, $5); };
 
-circle:     CIRCLE INT INT INT
+circle:     CIRCLE int int int
     { circle($2, $3, $4); };
 
-rectangle:  RECTANGLE INT INT INT
-    { rectangle($2, $3, $4); };
+rectangle:  RECTANGLE int int int int
+    { rectangle($2, $3, $4, $5); };
 
-set_color:  SET_COLOR INT INT INT
+set_color:  SET_COLOR int int int
     { set_color($2, $3, $4); };
 
 %%
 
 int main(int argc, char **argv) {
     yyparse();
+}
+
+void yyerror(const char* msg) {
+    error(1, 1, "%s\n", msg);
 }

@@ -63,8 +63,8 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 11 "zoomjoystrong.y" /* yacc.c:1909  */
-int i; float f;
+#line 14 "zoomjoystrong.y" /* yacc.c:1909  */
+int i; float f; 
 
 #line 70 "zoomjoystrong.tab.h" /* yacc.c:1909  */
 };
