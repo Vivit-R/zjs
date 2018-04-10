@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#ifndef YY_YY_ZOOMJOYSTRONG_TAB_H_INCLUDED
+# define YY_YY_ZOOMJOYSTRONG_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -52,28 +52,31 @@ extern int yydebug;
     CIRCLE = 262,
     RECTANGLE = 263,
     SET_COLOR = 264,
-    ERR = 265,
-    INT = 266,
-    FLOAT = 267
+    INT = 265,
+    FLOAT = 266,
+    ERROR = 267
   };
 #endif
-/* Tokens.  */
-#define END 258
-#define END_STATEMENT 259
-#define POINT 260
-#define LINE 261
-#define CIRCLE 262
-#define RECTANGLE 263
-#define SET_COLOR 264
-#define ERR 265
-#define INT 266
-#define FLOAT 267
 
 /* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+
+union YYSTYPE
+{
+#line 11 "zoomjoystrong.y" /* yacc.c:1909  */
+int i; float f;
+
+#line 70 "zoomjoystrong.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
 
 
 extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_ZOOMJOYSTRONG_TAB_H_INCLUDED  */
