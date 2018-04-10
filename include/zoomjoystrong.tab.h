@@ -45,16 +45,18 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    END = 258,
-    END_STATEMENT = 259,
-    POINT = 260,
-    LINE = 261,
-    CIRCLE = 262,
-    RECTANGLE = 263,
-    SET_COLOR = 264,
-    INT = 265,
-    FLOAT = 266,
-    ERROR = 267
+    FOO = 258,
+    END = 259,
+    SEPARATOR = 260,
+    END_STATEMENT = 261,
+    POINT = 262,
+    LINE = 263,
+    CIRCLE = 264,
+    RECTANGLE = 265,
+    SET_COLOR = 266,
+    INT = 267,
+    FLOAT = 268,
+    ERROR = 269
   };
 #endif
 
@@ -66,7 +68,7 @@ union YYSTYPE
 #line 14 "zoomjoystrong.y" /* yacc.c:1909  */
 int i; float f; 
 
-#line 70 "zoomjoystrong.tab.h" /* yacc.c:1909  */
+#line 72 "zoomjoystrong.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

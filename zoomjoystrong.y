@@ -13,6 +13,7 @@
 
 %union {int i; float f; }
 
+%token FOO
 %token END
 %token SEPARATOR
 %token END_STATEMENT
@@ -29,42 +30,48 @@
 %type<f> FLOAT
 
 %%
-script:     body end;
+script:     body end
+    ;
 
-int:        INT SEPARATOR | INT END_STATEMENT
-    { $1; };
-float:      FLOAT SEPARATOR | INT END_STATEMENT
-    { $1; };
-
-body:       statement | statement body;
+body:       statement | body statement
+    ;
 
 end:        END
     { printf("the end\n");
     return 0; };
 
-statement:  command end_statement
-    {printf( "statement");};
+statement:    point END_STATEMENT 
+            | line END_STATEMENT
+            | circle END_STATEMENT
+            | rectangle END_STATEMENT
+            | set_color END_STATEMENT
+            | foo END_STATEMENT
+    {printf( "statement\n");}
+    ;
 
-end_statement:  END_STATEMENT
-    {};
+point:      POINT INT INT
+    { point($2, $3); }
+    ;
 
-command:    point | line | circle | rectangle | set_color
-    {printf( "command");};
+line:       LINE INT INT INT INT
+    { line($2, $3, $4, $5); }
+    ;
 
-point:      POINT int int
-    { point($2, $3); };
+circle:     CIRCLE INT INT INT
+    { circle($2, $3, $4); }
+    ;
 
-line:       LINE int int int int
-    { line($2, $3, $4, $5); };
+rectangle:  RECTANGLE INT INT INT INT
+    { rectangle($2, $3, $4, $5); }
+    ;
 
-circle:     CIRCLE int int int
-    { circle($2, $3, $4); };
+set_color:  SET_COLOR INT INT INT
+    { set_color($2, $3, $4); }
+    ;
 
-rectangle:  RECTANGLE int int int int
-    { rectangle($2, $3, $4, $5); };
-
-set_color:  SET_COLOR int int int
-    { set_color($2, $3, $4); };
+foo:        FOO
+    { printf("foo!\n"); }
+    ;
 
 %%
 
