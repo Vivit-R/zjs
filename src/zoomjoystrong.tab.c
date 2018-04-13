@@ -445,8 +445,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    33,    33,    36,    36,    39,    43,    44,    45,    46,
-      47,    48,    52,    56,    60,    64,    68,    72
+       0,    33,    33,    36,    36,    39,    42,    43,    44,    45,
+      46,    47,    50,    60,    70,    80,    90,   100
 };
 #endif
 
@@ -1240,55 +1240,78 @@ yyreduce:
     {
         case 5:
 #line 40 "zoomjoystrong.y" /* yacc.c:1646  */
-    { printf("the end\n");
-    return 0; }
-#line 1246 "zoomjoystrong.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 11:
-#line 49 "zoomjoystrong.y" /* yacc.c:1646  */
-    {printf( "statement\n");}
-#line 1252 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+    { return 0; }
+#line 1245 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 53 "zoomjoystrong.y" /* yacc.c:1646  */
-    { point((yyvsp[-1].i), (yyvsp[0].i)); }
-#line 1258 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 51 "zoomjoystrong.y" /* yacc.c:1646  */
+    {
+        if ((yyvsp[-1].i) > WIDTH || (yyvsp[0].i) > HEIGHT || (yyvsp[-1].i) < 0 || (yyvsp[0].i) < 0) {
+            printf("Coordinates out of bounds!\n");                                                                        
+        } else {
+            point((yyvsp[-1].i), (yyvsp[0].i)); 
+        }
+    }
+#line 1257 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 57 "zoomjoystrong.y" /* yacc.c:1646  */
-    { line((yyvsp[-3].i), (yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i)); }
-#line 1264 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 61 "zoomjoystrong.y" /* yacc.c:1646  */
+    {
+        if ((yyvsp[-3].i) > WIDTH || (yyvsp[-2].i) > HEIGHT || (yyvsp[-3].i) < 0 || (yyvsp[-2].i) < 0 || (yyvsp[-2].i) > WIDTH || (yyvsp[-1].i) > HEIGHT || (yyvsp[-2].i) < 0 || (yyvsp[-1].i) < 0) {
+                printf("Coordinates out of bounds!\n");                                                                        
+        } else {
+            line((yyvsp[-3].i), (yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
+        }
+    }
+#line 1269 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 61 "zoomjoystrong.y" /* yacc.c:1646  */
-    { circle((yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i)); }
-#line 1270 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 71 "zoomjoystrong.y" /* yacc.c:1646  */
+    {
+        if ((yyvsp[-2].i) > WIDTH || (yyvsp[-1].i) > HEIGHT) { // || $2 + $4 > WIDTH || $3 + $4 > HEIGHT || $2 + $4 < WIDTH || $3 + $4 < HEIGHT || $2 - $4 < 0 || $2 + $4 < 0 || $3 - $4 < 0 || $3 + $4 < 0 || $3 < 0 || $4 < 0) {
+            printf("Coordinates out of bounds!\n");
+        } else {
+            circle((yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
+        }
+    }
+#line 1281 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 65 "zoomjoystrong.y" /* yacc.c:1646  */
-    { rectangle((yyvsp[-3].i), (yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i)); }
-#line 1276 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 81 "zoomjoystrong.y" /* yacc.c:1646  */
+    {
+        if ((yyvsp[-3].i) >= WIDTH || (yyvsp[-2].i) >= HEIGHT || (yyvsp[-1].i) >= WIDTH || (yyvsp[0].i) >= HEIGHT) {
+            printf("Coordinates out of bounds!\n");                                                                        
+        } else {
+            rectangle((yyvsp[-3].i), (yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i)); 
+        }
+    }
+#line 1293 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 69 "zoomjoystrong.y" /* yacc.c:1646  */
-    { set_color((yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i)); }
-#line 1282 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 91 "zoomjoystrong.y" /* yacc.c:1646  */
+    {
+        if ((yyvsp[-2].i) < 0 || (yyvsp[-2].i) >= 256 || (yyvsp[-1].i) < 0 || (yyvsp[-1].i) >= 256 || (yyvsp[0].i) < 0 || (yyvsp[0].i) >= 256) {
+            printf("Please name a valid 42-bit RGB color.\n");
+        } else {
+            set_color((yyvsp[-2].i), (yyvsp[-1].i), (yyvsp[0].i));
+        }
+    }
+#line 1305 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 73 "zoomjoystrong.y" /* yacc.c:1646  */
+#line 101 "zoomjoystrong.y" /* yacc.c:1646  */
     { printf("foo!\n"); }
-#line 1288 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 1311 "zoomjoystrong.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1292 "zoomjoystrong.tab.c" /* yacc.c:1646  */
+#line 1315 "zoomjoystrong.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1516,7 +1539,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 76 "zoomjoystrong.y" /* yacc.c:1906  */
+#line 104 "zoomjoystrong.y" /* yacc.c:1906  */
 
 
 int main(int argc, char **argv) {

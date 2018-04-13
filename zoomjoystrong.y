@@ -37,8 +37,7 @@ body:       statement | body statement
     ;
 
 end:        END
-    { printf("the end\n");
-    return 0; };
+    { return 0; };
 
 statement:    point END_STATEMENT 
             | line END_STATEMENT
@@ -46,27 +45,56 @@ statement:    point END_STATEMENT
             | rectangle END_STATEMENT
             | set_color END_STATEMENT
             | foo END_STATEMENT
-    {printf( "statement\n");}
     ;
 
 point:      POINT INT INT
-    { point($2, $3); }
+    {
+        if ($2 > WIDTH || $3 > HEIGHT || $2 < 0 || $3 < 0) {
+            printf("Coordinates out of bounds!\n");                                                                        
+        } else {
+            point($2, $3); 
+        }
+    }
     ;
 
 line:       LINE INT INT INT INT
-    { line($2, $3, $4, $5); }
+    {
+        if ($2 > WIDTH || $3 > HEIGHT || $2 < 0 || $3 < 0 || $3 > WIDTH || $4 > HEIGHT || $3 < 0 || $4 < 0) {
+                printf("Coordinates out of bounds!\n");                                                                        
+        } else {
+            line($2, $3, $4, $5);
+        }
+    }
     ;
 
 circle:     CIRCLE INT INT INT
-    { circle($2, $3, $4); }
+    {
+        if ($2 > WIDTH || $3 > HEIGHT) { // || $2 + $4 > WIDTH || $3 + $4 > HEIGHT || $2 + $4 < WIDTH || $3 + $4 < HEIGHT || $2 - $4 < 0 || $2 + $4 < 0 || $3 - $4 < 0 || $3 + $4 < 0 || $3 < 0 || $4 < 0) {
+            printf("Coordinates out of bounds!\n");
+        } else {
+            circle($2, $3, $4);
+        }
+    }
     ;
 
 rectangle:  RECTANGLE INT INT INT INT
-    { rectangle($2, $3, $4, $5); }
+    {
+        if ($2 >= WIDTH || $3 >= HEIGHT || $4 >= WIDTH || $5 >= HEIGHT) {
+            printf("Coordinates out of bounds!\n");                                                                        
+        } else {
+            rectangle($2, $3, $4, $5); 
+        }
+    }
     ;
 
 set_color:  SET_COLOR INT INT INT
-    { set_color($2, $3, $4); }
+    {
+        if ($2 < 0 || $2 >= 256 || $3 < 0 || $3 >= 256 || $4 < 0 || $4 >= 256) {
+            printf("Please name a valid 42-bit RGB color.\n");
+        } else {
+            set_color($2, $3, $4);
+        }
+    }
     ;
 
 foo:        FOO

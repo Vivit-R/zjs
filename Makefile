@@ -2,8 +2,8 @@ BINNAME = zjs
 OUT = $(BINNAME)
 CC = gcc
 SRCDIR = ./src
-CFLAGS = -g -Wall
-LFLAGS = -lSDL2 -lm
+CFLAGS = -g -Wall -std=c99
+LFLAGS = -lSDL2 -lm -ll
 IFLAGS = ./include
 
 all:
